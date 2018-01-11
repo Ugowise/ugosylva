@@ -1,0 +1,68 @@
+<script>
+   Chart.defaults.global.animationEasing = 'easinoutQuad',
+   Chart.defaults.global.responsive = true;
+   Chart.defaults.global.scaleOverride = false;
+    Chart.defaults.global.scalesShowlabels = false;
+    Chart.defaults.global.scaleSteps = 25;
+    Chart.defaults.global.scaleStepWidth = 100;
+    Chart.defaults.global.scaleStartValue = 0;
+    Chart.defaults.global.tooltipFontFamily = 'Open Sans';
+    Chart.defaults.global.tooltipFillColor = '#FFFFFF';
+    Chart.defaults.global.tooltipFontColor = '#6E6E6E';
+    Chart.defaults.global.tooltipCaretSize = 0;
+    Chart.defaults.global.maintainAspectRatio = true;
+
+    Chart.defaults.Line.scaleShowHorizontalLines = false;
+     Chart.defaults.Line.scaleShowHorizontalLines = false;
+      Chart.defaults.Line.scaleGridLineColor = 'rgba(0,0,0)';
+       Chart.defaults.Line.scaleLineColor = 'rgba(0,0,0,0)';
+
+       var chart = document.getElementById('chart').getContext('2d'),
+         gradient = chart.createLinearGradient(0, 0, 0, 450);
+         var get_data = <%= data_set %>
+         var data = {
+         	labels: get_data[1]
+         	datasets: [{
+         		label: 'BTC Tracker'
+         		fillColor: gradient,
+         		strokeColor: '#F1C40F',
+         		pointColor: 'white',
+         		pointStrokeColor: 'rgba(0,0,0,1)',
+         		pointHighLightStroke: 'rgba(0,0,0,1)',
+
+         		data: get_data[0]
+
+         	}]
+         };
+
+         gradient.addColorStop(0, 'rgba(241,196,15,0.5)');
+         gradient.addColorStop(0.5, 'rgba(241,196,15,0.25)');
+         gradient.addColorStop(1, 'rgba(241,196,15,0)');
+
+         var chart = new Chart(chart).Line(data);
+         </script>
+
+<!-- load chart -->   
+<div style="text-align:center" class="col-md-8 col-md-offset-2">
+	<h1>Check BTC</h1>
+</div>
+<br>
+<div style="background-color:white;" class="myblock col-md-8 col-md-offset-2">
+	<div style="text-align:center;">
+		<div class="l-chart">
+			<div class="aspect-ratio">
+				<canvas id="chart"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end chart -->
+
+<div>
+	<div>
+		<% @prices.each do |price| %>
+		 <p>Price: <%= price.price %></p>
+		 <p>Price: <%= price.created_at %></p>
+		 <% end %>
+	</div>
+</div>
